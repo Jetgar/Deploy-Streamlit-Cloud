@@ -17,20 +17,21 @@ st.markdown(
     """
     <style>
     .main {
-        background-color: #ffffff;
+        background-color: #f0f4f8;
         color: #1f2937;
         font-family: 'Inter', sans-serif;
-        max-width: 700px;
+        max-width: 800px;
         margin: 2rem auto;
         padding: 2rem 3rem;
         border-radius: 12px;
-        box-shadow: rgba(0,0,0,0.08) 0px 8px 24px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 24px;
     }
     h1 {
         font-size: 48px;
         font-weight: 700;
         margin-bottom: 1rem;
         color: #111827;
+        text-align: center;
     }
     h2 {
         font-size: 24px;
@@ -44,7 +45,7 @@ st.markdown(
         color: #374151;
     }
     .stButton>button {
-        background-color: #111827;
+        background-color: #4a90e2;
         color: white;
         padding: 12px 28px;
         font-size: 18px;
@@ -54,14 +55,19 @@ st.markdown(
         transition: background-color 0.3s ease;
     }
     .stButton>button:hover {
-        background-color: #2563eb;
+        background-color: #357ab8;
         cursor: pointer;
     }
     .result {
-        background-color: #f9fafb;
+        background-color: #ffffff;
         padding: 1rem;
         border-radius: 8px;
         margin-top: 1rem;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    }
+    .caption {
+        font-size: 14px;
+        color: #6b7280;
     }
     </style>
     """,
@@ -276,4 +282,3 @@ if st.button("Prediksi Tingkat Obesitas"):
     st.markdown("</div>", unsafe_allow_html=True)
 
 st.markdown("</div>", unsafe_allow_html=True)
-
