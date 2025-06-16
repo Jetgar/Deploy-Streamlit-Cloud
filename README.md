@@ -36,10 +36,10 @@ Proyek ini fokus pada pembangunan sebuah model klasifikasi yang mampu menentukan
 
 | File | Deskripsi |
 |------|-----------|
-| `appp.py` | Script utama aplikasi interaktif berbasis Streamlit |
-| `model_obesitas.pkl` | Model klasifikasi terlatih (Random Forest) |
-| `requirements.txt` | Daftar paket Python yang dibutuhkan untuk run aplikasi |
+| `ObesityDataSet.csv` | Dataset yang digunakan untuk melatih model klasifikasi obesitas |
 | `README.md` | Dokumen penjelasan detail tentang proyek |
+| `appp.py` | Script utama aplikasi interaktif berbasis Streamlit |
+| `requirements.txt` | Daftar paket Python yang dibutuhkan untuk menjalankan aplikasi |
 
 ---
 
