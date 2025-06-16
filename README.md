@@ -1,7 +1,7 @@
 # Prediksi Tingkat Obesitas 
 Capstone Project – Bengkel Koding Data Science
 
----
+--
 
 ## Ringkasan Proyek
 Proyek ini fokus pada pembangunan sebuah model klasifikasi yang mampu menentukan kategori tingkat obesitas seseorang berdasarkan data terkait kondisi fisik, kebiasaan makan, serta gaya hidup. Model ini kemudian diwujudkan dalam aplikasi web interaktif dengan memanfaatkan **Streamlit**.
