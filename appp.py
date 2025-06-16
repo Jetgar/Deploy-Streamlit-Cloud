@@ -1,80 +1,57 @@
 import streamlit as st
-import numpy as np
+import pandas as pd
 import joblib
 
-# Load model dan scaler
+# Load model
 model = joblib.load("model_obesitas.pkl")
-scaler = joblib.load("scaler.pkl")
 
-# Judul Aplikasi
-st.title("Prediksi Tingkat Obesitas")
-st.markdown("Masukkan data berikut untuk memprediksi tingkat obesitas:")
+# Judul aplikasi
+st.title("Prediksi Kategori Obesitas")
 
-# Input data
-age = st.number_input("Usia", 10, 100, 25)
-height = st.number_input("Tinggi Badan (meter)", 1.0, 2.5, 1.70)
-weight = st.number_input("Berat Badan (kg)", 30, 200, 70)
-fcvc = st.slider("Konsumsi Sayur (FCVC)", 1, 3, 2)
-ncp = st.slider("Jumlah Makan per Hari (NCP)", 1, 4, 3)
-ch2o = st.slider("Minum Air (CH2O)", 1, 3, 2)
-faf = st.slider("Aktivitas Fisik (FAF)", 0, 3, 1)
-tue = st.slider("Waktu Pakai Teknologi (TUE)", 0, 3, 1)
+# Deskripsi
+st.write("Isi data berikut untuk memprediksi kategori obesitas berdasarkan data Anda.")
 
-# Fitur kategorikal
-gender = st.selectbox("Jenis Kelamin", ["Male", "Female"])
-family_history = st.selectbox("Riwayat Keluarga Obesitas", ["Yes", "No"])
-favc = st.selectbox("Sering Konsumsi Makanan Tinggi Kalori?", ["Yes", "No"])
-caec = st.selectbox("Konsumsi Camilan?", ["No", "Sometimes", "Frequently", "Always"])
-smoke = st.selectbox("Merokok?", ["Yes", "No"])
-scc = st.selectbox("Kendalikan Kalori?", ["Yes", "No"])
-calc = st.selectbox("Konsumsi Alkohol?", ["No", "Sometimes", "Frequently"])
-mtrans = st.selectbox("Transportasi", ["Public_Transportation", "Walking", "Automobile", "Motorbike", "Bike"])
+# Form input
+with st.form("input_form"):
+    Gender = st.selectbox("Jenis Kelamin", ["Male", "Female"])
+    Age = st.slider("Umur", 10, 100, 25)
+    Height = st.number_input("Tinggi (meter)", min_value=1.0, max_value=2.5, value=1.7)
+    Weight = st.number_input("Berat (kg)", min_value=20.0, max_value=200.0, value=65.0)
+    family_history_with_overweight = st.selectbox("Riwayat keluarga overweight?", ["yes", "no"])
+    FAVC = st.selectbox("Sering konsumsi makanan tinggi kalori (FAVC)?", ["yes", "no"])
+    FCVC = st.slider("Frekuensi konsumsi sayur (0-3)", 0.0, 3.0, 2.0)
+    NCP = st.slider("Jumlah makan utama per hari (1-4)", 1.0, 4.0, 3.0)
+    CAEC = st.selectbox("Makan berlebih?", ["no", "Sometimes", "Frequently", "Always"])
+    SMOKE = st.selectbox("Merokok?", ["yes", "no"])
+    CH2O = st.slider("Asupan air (liter/hari)", 0.0, 3.0, 1.0)
+    SCC = st.selectbox("Monitoring kalori?", ["yes", "no"])
+    FAF = st.slider("Frekuensi aktivitas fisik (0-3)", 0.0, 3.0, 1.0)
+    TUE = st.slider("Waktu depan komputer/gadget (0-3)", 0.0, 3.0, 1.0)
+    CALC = st.selectbox("Konsumsi alkohol?", ["no", "Sometimes", "Frequently", "Always"])
+    MTRANS = st.selectbox("Transportasi harian", ["Public_Transportation", "Walking", "Automobile", "Motorbike", "Bike"])
 
-# Encode kategorikal manual (harus sama dengan label encoder kamu saat training)
-def encode(val, mapping):
-    return mapping.get(val, 0)
+    submitted = st.form_submit_button("Prediksi")
 
-gender_map = {"Male": 1, "Female": 0}
-family_map = {"Yes": 1, "No": 0}
-favc_map = {"Yes": 1, "No": 0}
-caec_map = {"No": 0, "Sometimes": 1, "Frequently": 2, "Always": 3}
-smoke_map = {"Yes": 1, "No": 0}
-scc_map = {"Yes": 1, "No": 0}
-calc_map = {"No": 0, "Sometimes": 1, "Frequently": 2}
-mtrans_map = {"Public_Transportation": 0, "Walking": 1, "Automobile": 2, "Motorbike": 3, "Bike": 4}
+# Proses prediksi
+if submitted:
+    input_data = pd.DataFrame([{
+        "Gender": Gender,
+        "Age": Age,
+        "Height": Height,
+        "Weight": Weight,
+        "family_history_with_overweight": family_history_with_overweight,
+        "FAVC": FAVC,
+        "FCVC": FCVC,
+        "NCP": NCP,
+        "CAEC": CAEC,
+        "SMOKE": SMOKE,
+        "CH2O": CH2O,
+        "SCC": SCC,
+        "FAF": FAF,
+        "TUE": TUE,
+        "CALC": CALC,
+        "MTRANS": MTRANS
+    }])
 
-# Gabungkan input
-data = np.array([[
-    age,
-    height,
-    weight,
-    fcvc,
-    ncp,
-    ch2o,
-    faf,
-    tue,
-    encode(gender, gender_map),
-    encode(family_history, family_map),
-    encode(favc, favc_map),
-    encode(caec, caec_map),
-    encode(smoke, smoke_map),
-    encode(scc, scc_map),
-    encode(calc, calc_map),
-    encode(mtrans, mtrans_map)
-]])
-
-# Tombol prediksi
-if st.button("Prediksi"):
-    data_scaled = scaler.transform(data)
-    pred = model.predict(data_scaled)[0]
-    
-    klasifikasi = {
-        0: "Berat Badan Kurang",
-        1: "Berat Badan Normal",
-        2: "Kelebihan Berat Badan Tingkat I",
-        3: "Kelebihan Berat Badan Tingkat II",
-        4: "Obesitas Tipe I",
-        5: "Obesitas Tipe II",
-        6: "Obesitas Tipe III"
-    }
-    st.success(f"Hasil Prediksi: **{klasifikasi[pred]}**")
+    prediction = model.predict(input_data)[0]
+    st.success(f"✅ Prediksi kategori obesitas Anda: **{prediction}**")
