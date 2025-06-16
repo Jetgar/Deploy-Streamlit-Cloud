@@ -1,1 +1,2 @@
-
+import joblib
+model = joblib.load("model_obesitas.pkl")
