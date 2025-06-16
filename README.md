@@ -1,61 +1,56 @@
-# 🎯 Prediksi Tingkat Obesitas Menggunakan Machine Learning
-
-Capstone Project – Bengkel Koding Data Science  
-Universitas Dian Nuswantoro  
+# Prediksi Tingkat Obesitas Menggunakan Machine Learning 
 
 ---
 
-## 📌 Deskripsi Proyek
-
-Proyek ini bertujuan untuk membangun model klasifikasi yang mampu memprediksi **tingkat obesitas** seseorang berdasarkan informasi fisik, kebiasaan makan, dan gaya hidup. Model yang dibangun dideploy dalam bentuk aplikasi web interaktif menggunakan **Streamlit**.
-
----
-
-## 🧠 Metodologi
-
-1. **Exploratory Data Analysis (EDA)**
-   - Analisis distribusi data
-   - Deteksi outlier, missing value, dan ketidakseimbangan kelas
-
-2. **Preprocessing**
-   - Penanganan missing value dan outlier
-   - Encoding fitur kategorikal
-   - Normalisasi data
-   - Oversampling dengan SMOTE
-
-3. **Modeling & Evaluation**
-   - Model: KNN, Decision Tree, Random Forest
-   - Evaluasi: Akurasi, Presisi, Recall, F1-Score
-   - Confusion Matrix & Visualisasi Perbandingan
-
-4. **Hyperparameter Tuning**
-   - GridSearchCV untuk menemukan parameter optimal
-
-5. **Deployment**
-   - Aplikasi dibangun dengan **Streamlit**
-   - Model disimpan menggunakan `joblib` dan dideploy ke **Streamlit Cloud**
+## Ringkasan Proyek
+Proyek ini fokus pada pembangunan sebuah model klasifikasi yang mampu menentukan kategori tingkat obesitas seseorang berdasarkan data terkait kondisi fisik, kebiasaan makan, serta gaya hidup. Model ini kemudian diwujudkan dalam aplikasi web interaktif dengan memanfaatkan **Streamlit**.
 
 ---
-## 🗂️ File di Repo
+
+## Langkah Pengerjaan
+**Analisis Data Awal (Exploratory Data Analysis)**
+- Memahami sebaran dan karakteristik data
+- Mengidentifikasi outlier, data yang hilang, dan potensi ketidakseimbangan kelas
+
+**Persiapan Data**
+- Mengatasi nilai data yang hilang dan penyimpangan (outlier)
+- Mengonversi fitur kategorikal menjadi format numerik
+- Melakukan normalisasi agar data siap dimodelkan
+- Mengaplikasikan teknik oversampling SMOTE untuk mengatasi kelas minoritas
+
+**Pengembangan Model dan Evaluasi**
+- Menggunakan algoritma KNN, Decision Tree, dan Random Forest untuk klasifikasi
+- Menilai performa model menggunakan metrik seperti akurasi, presisi, recall, dan F1-score
+- Menampilkan matriks kebingungan dan membandingkan hasil antar model secara visual
+
+**Optimalisasi Model (Hyperparameter Tuning)**
+- Menentukan parameter terbaik dengan metode GridSearchCV agar akurasi meningkat
+
+**Implementasi Aplikasi**
+- Mengembangkan aplikasi berbasis Streamlit yang user-friendly
+- Menyimpan model terlatih dan scaler menggunakan joblib
+- Deploy aplikasi ke Streamlit Cloud untuk akses online
+
+---
+## Struktur File dalam Repository
 
 | File | Deskripsi |
 |------|-----------|
-| `app.py` | Aplikasi utama berbasis Streamlit |
+| `appp.py` | Script utama aplikasi interaktif berbasis Streamlit |
 | `model_obesitas.pkl` | Model klasifikasi terlatih (Random Forest) |
-| `scaler.pkl` | Scaler untuk normalisasi input pengguna |
-| `requirements.txt` | Library yang dibutuhkan agar aplikasi berjalan |
-| `README.md` | Deskripsi proyek ini |
+| `requirements.txt` | Daftar paket Python yang dibutuhkan untuk run aplikasi |
+| `README.md` | Dokumen penjelasan detail tentang proyek |
 
 ---
 
-## 🚀 Cara Menjalankan Aplikasi
+## Panduan Menjalankan Aplikasi
 
-### 🔹 Secara Lokal
+### Langkah-langkah Mengoperasikan secara Lokal:
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
 
 ```
 
-🔹 Versi Online (Streamlit Cloud)
-👉 Klik di sini : 
+Versi Aplikasi Online (Via Streamlit Cloud):
+[Klik di sini untuk akses langsung](https://deployobesity.streamlit.app/)
