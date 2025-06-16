@@ -16,9 +16,9 @@ st.markdown(
     """
     <style>
     html, body, [class*="css"] {
-        font-family: 'Open Sans', sans-serif;
-        background: linear-gradient(145deg, #f8fafc, #e2e8f0);
-        color: #1e293b;
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(to right, #f0f4f8, #d9e2ec);
+        color: #1f2937;
     }
     .main {
         background-color: #ffffff;
@@ -26,10 +26,10 @@ st.markdown(
         padding: 2.5rem 3rem;
         max-width: 860px;
         margin: 2rem auto;
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
     }
     h1 {
-        font-size: 42px;
+        font-size: 44px;
         font-weight: 800;
         color: #0f172a;
         margin-bottom: 1.5rem;
@@ -46,7 +46,7 @@ st.markdown(
         color: #334155;
     }
     .stButton>button {
-        background: linear-gradient(90deg, #1d4ed8, #3b82f6);
+        background: linear-gradient(to right, #111827, #2563eb);
         color: #ffffff;
         padding: 12px 28px;
         font-size: 17px;
@@ -57,7 +57,7 @@ st.markdown(
         transition: all 0.3s ease-in-out;
     }
     .stButton>button:hover {
-        background: linear-gradient(90deg, #2563eb, #60a5fa);
+        background: linear-gradient(to right, #2563eb, #111827);
         transform: translateY(-1px);
         cursor: pointer;
     }
