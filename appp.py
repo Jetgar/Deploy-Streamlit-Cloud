@@ -32,6 +32,12 @@ st.markdown(
         margin-bottom: 1rem;
         color: #111827;
     }
+    h2 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-top: 1.5rem;
+        color: #111827;
+    }
     label {
         font-weight: 600;
         font-size: 16px;
@@ -51,6 +57,12 @@ st.markdown(
         background-color: #2563eb;
         cursor: pointer;
     }
+    .result {
+        background-color: #f9fafb;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-top: 1rem;
+    }
     </style>
     """,
     unsafe_allow_html=True,
@@ -59,7 +71,9 @@ st.markdown(
 # Main content
 st.markdown('<div class="main">', unsafe_allow_html=True)
 st.title("Prediksi Tingkat Obesitas")
-st.write("Masukkan data diri dan kebiasaan Anda dengan lengkap untuk memprediksi tingkat obesitas berdasarkan model terpercaya.")
+st.write(
+    "Masukkan data diri dan kebiasaan Anda dengan lengkap untuk memprediksi tingkat obesitas berdasarkan model terpercaya."
+)
 
 st.subheader("Informasi Pribadi dan Kebiasaan")
 
@@ -248,6 +262,7 @@ if st.button("Prediksi Tingkat Obesitas"):
     pred_proba = model.predict_proba(input_df_scaled)[0]
     pred_label = target_le.inverse_transform([pred_encoded])[0]
 
+    st.markdown("<div class='result'>", unsafe_allow_html=True)
     st.markdown("### Hasil Prediksi:")
     st.success(f"Tingkat obesitas Anda diprediksi adalah: **{pred_label}**")
 
@@ -258,5 +273,7 @@ if st.button("Prediksi Tingkat Obesitas"):
 
     st.markdown("### Probabilitas Prediksi tiap Kelas:")
     st.dataframe(proba_df.style.format({"Probabilitas": "{:.2%}"}))
+    st.markdown("</div>", unsafe_allow_html=True)
 
 st.markdown("</div>", unsafe_allow_html=True)
+
