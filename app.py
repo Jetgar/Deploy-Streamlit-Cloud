@@ -4,7 +4,7 @@ import numpy as np
 import joblib
 
 # --- Load model dan tools ---
-with open("model.pkl", "rb") as f:
+with open("ObesityDataSet.csv", "rb") as f:
     data = joblib.load(f)
     model = data['model']
     scaler = data['scaler']
