@@ -1,3 +1,9 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+
 st.set_page_config(
     page_title="Prediksi Tingkat Obesitas",
     page_icon=":bar_chart:",
