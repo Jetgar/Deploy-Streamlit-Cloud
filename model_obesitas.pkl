@@ -1,2 +1,2 @@
 import joblib
-joblib.dump(model, "model_obesitas.pkl")
+model = joblib.load("model_obesitas.pkl")
