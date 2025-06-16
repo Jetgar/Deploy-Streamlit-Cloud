@@ -68,7 +68,28 @@ st.write("Masukkan data pribadi dan kebiasaan Anda untuk mengetahui prediksi tin
 
 # ... (seluruh isi form & model sama, tidak berubah karena sudah benar dan lengkap)
 
-st.markdown("</div>", unsafe_allow_html=True)
+st.markdown('<div class="main">', unsafe_allow_html=True)
+
+st.title("Prediksi Tingkat Obesitas")
+st.write("Masukkan data pribadi dan kebiasaan Anda untuk mengetahui prediksi tingkat obesitas berdasarkan model pembelajaran mesin.")
+
+# Simulasi input dan model dummy (untuk contoh)
+input_df_scaled = pd.DataFrame(np.random.rand(1, 16), columns=[f"F{i}" for i in range(16)])
+pred_proba = np.random.dirichlet(np.ones(7), size=1)[0]
+pred_encoded = np.argmax(pred_proba)
+pred_label = ["Insufficient_Weight", "Normal_Weight", "Overweight_Level_I", "Overweight_Level_II", "Obesity_Type_I", "Obesity_Type_II", "Obesity_Type_III"][pred_encoded]
+
+if st.button("Prediksi Tingkat Obesitas"):
+    st.markdown("### Hasil Prediksi:")
+    st.success(f"Tingkat obesitas Anda diprediksi adalah: **{pred_label}**")
+
+    proba_df = pd.DataFrame({
+        "Tingkat Obesitas": [
+            "Insufficient_Weight", "Normal_Weight", "Overweight_Level_I", "Overweight_Level_II",
+            "Obesity_Type_I", "Obesity_Type_II", "Obesity_Type_III"
+        ],
+        "Probabilitas": pred_proba
+    }).sort_values("Probabilitas", ascending=False)
 
     st.markdown("### Probabilitas Prediksi tiap Kelas:")
     st.dataframe(proba_df.style.format({"Probabilitas": "{:.2%}"}))
