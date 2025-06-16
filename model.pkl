@@ -1,0 +1,54 @@
+import joblib
+import pandas as pd
+
+# --- Muat model dan tools lainnya ---
+with open("model.pkl", "rb") as f:
+    data = joblib.load(f)
+
+model = data['model']
+scaler = data['scaler']
+label_encoders = data['label_encoders']
+target_encoder = data['target_encoder']
+numeric_cols = data['numeric_cols']
+feature_names = data['feature_names']
+
+# --- Contoh input data baru (disesuaikan dengan fitur model) ---
+input_dict = {
+    "Age": 25,
+    "Height": 1.75,
+    "Weight": 70,
+    "NCP": 3,
+    "CH2O": 2.0,
+    "FAF": 3,
+    "TUE": 3,
+    "FCVC": 3,
+    "Gender": "Male",
+    "CALC": "Sometimes",
+    "FAVC": "yes",
+    "SCC": "no",
+    "SMOKE": "no",
+    "family_history_with_overweight": "yes",
+    "CAEC": "Sometimes",
+    "MTRANS": "Public_Transportation"
+}
+
+# --- Encode data kategorikal sesuai label encoder saat training ---
+for col, le in label_encoders.items():
+    input_dict[col] = le.transform([input_dict[col]])[0]
+
+# --- Konversi ke DataFrame dan sesuaikan urutan kolom ---
+input_df = pd.DataFrame([input_dict])
+input_df = input_df.reindex(columns=feature_names)
+
+# --- Skalakan fitur numerik ---
+input_df[numeric_cols] = scaler.transform(input_df[numeric_cols])
+
+# --- Prediksi ---
+pred_encoded = model.predict(input_df)[0]
+pred_label = target_encoder.inverse_transform([pred_encoded])[0]
+pred_proba = model.predict_proba(input_df)[0]
+
+print("Prediksi Tingkat Obesitas:", pred_label)
+print("Probabilitas tiap kelas:")
+for cls, prob in zip(target_encoder.classes_, pred_proba):
+    print(f"  {cls}: {prob:.2%}")
