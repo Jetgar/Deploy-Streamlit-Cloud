@@ -1,2 +1,3 @@
-import joblib
-model = joblib.load("model_obesitas.pkl")
+import pickle
+with open("model_obesitas.pkl", "rb") as f:
+    model = pickle.load(f)
