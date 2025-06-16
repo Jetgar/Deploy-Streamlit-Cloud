@@ -37,6 +37,7 @@ Proyek ini fokus pada pembangunan sebuah model klasifikasi yang mampu menentukan
 
 | File | Deskripsi |
 |------|-----------|
+| `.devcontainer` | Berisi konfigurasi untuk membuat dan menjalankan lingkungan pengembangan otomatis berbasis Docker di Visual Studio Code |
 | `ObesityDataSet.csv` | Dataset yang digunakan untuk melatih model klasifikasi obesitas |
 | `README.md` | Dokumen penjelasan detail tentang proyek |
 | `appp.py` | Script utama aplikasi interaktif berbasis Streamlit |
