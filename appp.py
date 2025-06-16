@@ -4,6 +4,7 @@ import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 
+# Set up the Streamlit page configuration
 st.set_page_config(
     page_title="Prediksi Tingkat Obesitas",
     page_icon=":bar_chart:",
@@ -11,6 +12,7 @@ st.set_page_config(
     initial_sidebar_state="auto",
 )
 
+# Custom CSS for styling
 st.markdown(
     """
     <style>
@@ -54,20 +56,21 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+# Main content
 st.markdown('<div class="main">', unsafe_allow_html=True)
 st.title("Prediksi Tingkat Obesitas")
-st.write(
-    "Masukkan data diri dan kebiasaan Anda dengan lengkap untuk memprediksi tingkat obesitas berdasarkan model terpercaya."
-)
+st.write("Masukkan data diri dan kebiasaan Anda dengan lengkap untuk memprediksi tingkat obesitas berdasarkan model terpercaya.")
 
 st.subheader("Informasi Pribadi dan Kebiasaan")
 
+# Function to create selection boxes with explanations
 def pilihan(label, options, penjelasan):
     st.write(f"**{label}**")
     for i, p in enumerate(penjelasan):
         st.caption(f"- {options[i]}: {p}")
     return st.selectbox(f"Pilih {label.lower()} Anda:", options)
 
+# Options and descriptions for user input
 gender_opts = ["Perempuan", "Laki-laki"]
 gender_desc = ["Jenis kelamin wanita", "Jenis kelamin pria"]
 
@@ -126,6 +129,7 @@ mtrans_desc = [
     "Menggunakan sepeda"
 ]
 
+# User input fields
 age = st.number_input("Umur (tahun)", min_value=10, max_value=80, value=30, step=1)
 height = st.number_input("Tinggi badan (cm)", min_value=140, max_value=210, value=170, step=1)
 weight = st.number_input("Berat badan (kg)", min_value=30, max_value=200, value=70, step=1)
@@ -135,6 +139,7 @@ faf = st.number_input("Frekuensi aktivitas fisik per minggu (FAF)", min_value=0,
 tue = st.number_input("Waktu menggunakan gadget per hari (jam) (TUE)", min_value=0, max_value=16, value=4)
 fcvc = st.number_input("Frekuensi konsumsi sayur per minggu (FCVC)", min_value=0, max_value=21, value=3)
 
+# Collecting user choices
 gender = pilihan("Jenis Kelamin (Gender)", gender_opts, gender_desc)
 calc = pilihan("Konsumsi makanan tinggi kalori (CALC)", calc_opts, calc_desc)
 favc = pilihan("Mengonsumsi makanan tinggi kalori secara rutin (FAVC)", favc_opts, favc_desc)
@@ -144,13 +149,14 @@ family_history = pilihan("Riwayat keluarga kelebihan berat badan (family_history
 caec = pilihan("Konsumsi alkohol (CAEC)", caec_opts, caec_desc)
 mtrans = pilihan("Moda transportasi utama (MTRANS)", mtrans_opts, mtrans_desc)
 
+# Mapping categorical inputs to numerical values
 mapping_gender = {"Perempuan": 0, "Laki-laki": 1}
 mapping_calc = {"Tidak pernah": 0, "Kadang-kadang": 1, "Sering": 2, "Selalu": 3}
 mapping_favc = {"Tidak": 0, "Ya": 1}
 mapping_scc = {"Tidak": 0, "Ya": 1}
 mapping_smoke = {"Tidak": 0, "Ya": 1}
 mapping_family_history = {"Tidak": 0, "Ya": 1}
-mapping_caec = {"Tidak pernah": 0, "Kadang-kadang":1, "Sering": 2, "Selalu": 3}
+mapping_caec = {"Tidak pernah": 0, "Kadang-kadang": 1, "Sering": 2, "Selalu": 3}
 mapping_mtrans = {
     "Mobil pribadi": 0,
     "Motor": 1,
@@ -159,6 +165,7 @@ mapping_mtrans = {
     "Sepeda": 4
 }
 
+# Prepare input data for prediction
 input_data = {
     "Age": age,
     "Height": height,
@@ -188,6 +195,7 @@ input_df = pd.DataFrame([input_data], columns=[
 def load_and_train_model():
     df = pd.read_csv('ObesityDataSet.csv')
 
+    # Clean the dataset
     cols_with_question_mark = [
         'Gender', 'CALC', 'FAVC', 'SCC', 'SMOKE',
         'family_history_with_overweight', 'CAEC', 'MTRANS'
@@ -219,19 +227,22 @@ def load_and_train_model():
     model = RandomForestClassifier(n_estimators=100, random_state=42)
     model.fit(X, y)
 
-    # Simpan nama fitur training untuk validasi nanti 
+    # Save feature names for validation later
     feature_names = list(X.columns)
 
     return model, target_le, scaler, numeric_cols, feature_names
 
+# Load and train the model
 model, target_le, scaler, numeric_cols, feature_names = load_and_train_model()
 
-# Validasi dan susun ulang kolom input sesuai nama fitur training (untuk hindari error urutan/nama)
+# Validate and reorder input DataFrame columns
 input_df = input_df.reindex(columns=feature_names)
 
+# Scale the input data
 input_df_scaled = input_df.copy()
 input_df_scaled[numeric_cols] = scaler.transform(input_df[numeric_cols])
 
+# Prediction button
 if st.button("Prediksi Tingkat Obesitas"):
     pred_encoded = model.predict(input_df_scaled)[0]
     pred_proba = model.predict_proba(input_df_scaled)[0]
