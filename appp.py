@@ -27,7 +27,7 @@ st.markdown(hide_style, unsafe_allow_html=True)
 # Judul aplikasi
 st.markdown('<div style="text-align: center;">', unsafe_allow_html=True)
 st.title("Prediksi Tingkat Obesitas")
-st.markdown("Masukkan data pribadi & kebiasaan Anda untuk memprediksi tingkat obesitas.")
+st.markdown("Masukkan data pribadi & kebiasaan Anda untuk memprediksi tingkat obesitas :")
 st.markdown('</div>', unsafe_allow_html=True)
 
 # Fungsi pilihan dengan penjelasan
@@ -63,7 +63,7 @@ ncp = st.number_input("Jumlah makanan utama/hari", 1, 6, 3)
 ch2o = st.number_input("Air minum per hari (liter)", 1.0, 5.0, 2.0, step=0.1)
 faf = st.number_input("Aktivitas fisik/minggu (kali)", 0, 20, 3)
 tue = st.number_input("Waktu layar per hari (jam)", 0, 16, 4)
-fcvc = st.number_input("Frekuensi makan sayur/minggu", 0, 21, 3)
+fcvc = st.number_input("Makan sayur per minggu", 0, 21, 3)
 
 # Input kategori
 gender = pilihan("Jenis Kelamin", gender_opts, gender_desc)
