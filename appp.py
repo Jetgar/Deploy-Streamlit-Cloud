@@ -26,7 +26,7 @@ st.markdown(hide_style, unsafe_allow_html=True)
 
 # Judul aplikasi
 st.markdown('<div style="text-align: center;">', unsafe_allow_html=True)
-st.title("🎯 Prediksi Tingkat Obesitas")
+st.title("Prediksi Tingkat Obesitas")
 st.markdown("Masukkan data pribadi & kebiasaan Anda untuk memprediksi tingkat obesitas.")
 st.markdown('</div>', unsafe_allow_html=True)
 
@@ -144,7 +144,7 @@ input_df = input_df.reindex(columns=feature_names)
 input_df[num_cols] = scaler.transform(input_df[num_cols])
 
 # Tombol prediksi
-if st.button("🔍 Prediksi Tingkat Obesitas"):
+if st.button("Prediksi Tingkat Obesitas"):
     pred = model.predict(input_df)[0]
     proba = model.predict_proba(input_df)[0]
     label = target_le.inverse_transform([pred])[0]
